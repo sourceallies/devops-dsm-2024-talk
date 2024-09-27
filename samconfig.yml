@@ -1,0 +1,8 @@
+version: 0.1
+default:
+  deploy:
+    parameters:
+      stack_name: deploy-infrastructure
+      capabilities: 
+        - CAPABILITY_NAMED_IAM
+    
