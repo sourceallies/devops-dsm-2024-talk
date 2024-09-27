@@ -1,5 +1,5 @@
 name: Main Pipeline
-on: 
+on:
   push:
     branches:
       - main
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: install
         run: npm ci
