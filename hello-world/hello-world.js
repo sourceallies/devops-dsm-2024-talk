@@ -1,5 +1,5 @@
 export function handler(event) {
   return {
-    body: 'Hello World'
+    body: "Hello World",
   };
 }
