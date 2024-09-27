@@ -3,6 +3,5 @@ default:
   deploy:
     parameters:
       stack_name: deploy-infrastructure
-      capabilities: 
+      capabilities:
         - CAPABILITY_NAMED_IAM
-    
