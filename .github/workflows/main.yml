@@ -32,6 +32,7 @@ jobs:
   deploy-dev:
     concurrency: deploy-dev
     runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
     needs:
       - check-format
       - run-tests
