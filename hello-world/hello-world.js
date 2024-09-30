@@ -1,5 +1,5 @@
-export function handler(event) {
+export function handler() {
   return {
-    body: "Hello World",
+    message: "Hello World",
   };
 }
