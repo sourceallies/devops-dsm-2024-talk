@@ -55,7 +55,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: us-east-1
-          role-to-assume: ""
+          role-to-assume: "arn:aws:iam::248189918900:role/Deployer"
           role-session-name: Deploy
 
       - name: Build Stack
