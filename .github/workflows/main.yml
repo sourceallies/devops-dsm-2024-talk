@@ -5,7 +5,19 @@ on:
       - main
 
 jobs:
-  verify:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install
+        run: npm ci
+
+      - name: test
+        run: npm run test
+
+  check-format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,5 +29,36 @@ jobs:
       - name: format
         run: npm run check-format
 
-      - name: test
-        run: npm run test
+  deploy-dev:
+    concurrency: deploy-dev
+    needs:
+      - check-format
+      - run-tests
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          role-to-assume: ''
+          role-session-name: Deploy
+
+      - name: Build Stack
+        run: sam build
+
+      - name: Deploy Stack
+        run: sam deploy
