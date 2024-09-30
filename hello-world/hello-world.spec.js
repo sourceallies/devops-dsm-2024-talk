@@ -3,5 +3,7 @@ import { handler } from "./hello-world";
 
 it("should return the greeting", async () => {
   var resp = await handler({});
-  expect(resp.body).toEqual("Hello World");
+  expect(resp).toEqual({
+    message: "Hello World",
+  });
 });
