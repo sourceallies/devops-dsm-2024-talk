@@ -1,0 +1,69 @@
+name: Main Pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install
+        run: npm ci
+
+      - name: test
+        run: npm run test
+
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install
+        run: npm ci
+
+      - name: format
+        run: npm run check-format
+
+  deploy-dev:
+    concurrency: deploy-dev
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
+    needs:
+      - check-format
+      - run-tests
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: aws-actions/setup-sam@v2
+        with:
+          use-installer: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          role-to-assume: "arn:aws:iam::248189918900:role/Deployer"
+          role-session-name: Deploy
+
+      - name: Build Stack
+        run: sam build
+
+      - name: Deploy Stack
+        run: sam deploy
