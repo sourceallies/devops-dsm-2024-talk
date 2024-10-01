@@ -4,6 +4,7 @@ on:
     branches:
       - main
 
+jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     permissions:
