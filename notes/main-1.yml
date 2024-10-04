@@ -1,0 +1,16 @@
+# .github/workflows/main.yml
+name: "Main Pipeline"
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: install
+        run: echo "Hello build"
