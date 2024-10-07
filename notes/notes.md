@@ -1,6 +1,6 @@
 ordering:
 
-1. what we're deploying
+1. what we're deploying 🖥️
 1. home 🏠
    1. github actions workflow
 1. two step
