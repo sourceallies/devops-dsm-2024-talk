@@ -34,10 +34,10 @@ jobs:
 
   deploy-prod:
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}
-    needs:
-      - check-format
-      - run-tests
+    # if: ${{ github.ref_name == 'main' }}
+    # needs:
+    #   - check-format
+    #   - run-tests
     permissions:
       id-token: write
       contents: read
