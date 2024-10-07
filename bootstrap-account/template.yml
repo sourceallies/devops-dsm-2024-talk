@@ -16,7 +16,7 @@ Resources:
               Federated: !Ref GitHubOidcProvider
             Condition:
               StringLike:
-                token.actions.githubusercontent.com:sub: repo:prowe/*
+                token.actions.githubusercontent.com:sub: repo:sourceallies/devops-dsm-2024-talk
   GitHubOidcProvider:
     Type: AWS::IAM::OIDCProvider
     Properties:
